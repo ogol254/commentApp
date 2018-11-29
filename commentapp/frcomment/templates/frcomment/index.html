@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Comment App</title>
+	<meta charset="utf-8" />
+	
+	<link rel="stylesheet" href="{% static 'frcomment/main.css' %}" type="text/css" />
+
+
+</head>
+
+<body id="index" class="home">
+	
+	<header id="banner" class="body">
+		<h1><a href="#">Question comment App </a></h1>
+		<nav><ul>
+			<li class="active"><a href="#">home</a></li>
+			<li><a href="#">portfolio</a></li>
+			<li><a href="#">blog</a></li>
+			<li><a href="#">contact</a></li>
+		</ul></nav>
+	</header>
+	{% for q in question %}
+	<section id="content" class="body">
+	  
+	  <article class="hentry">	
+			<header>
+				<h2 class="entry-title"><a href="#" rel="bookmark" title="Permalink to this Building a Pusher-powered Real-Time Commenting System">{{ q.question }}</a></h2>
+			</header>
+			
+			<footer class="post-info">
+				<abbr class="published" title="2012-02-10T14:07:00-07:00">
+					{{ q.date_created }}
+				</abbr>
+
+				<address class="vcard author">
+					By <a class="url fn" href="#">{{ q.name }}</a>
+				</address>
+			</footer>
+			
+			<div class="entry-content">
+				<p>{{ q.question_description }}</p>
+			</div>
+		</article>
+			
+	</section>
+	{% endfor %}
+	
+	<section id="comments" class="body">
+	  
+	  <header>
+			<h2>Comments</h2>
+		</header>
+
+    <ol id="posts-list" class="come comment here">
+      <li class="no-comments">Be the first to add a comment.</li>
+   
+    		{% for c in comments %}
+	            <li><article id="id" class="hentry">	
+	    				<footer class="post-info">
+	    					<abbr class="published" title="Tittle">{{ c.date_created }}</abbr>
+
+	    					<address class="vcard author">
+	    						By <a class="url fn" href="#">{{c.name}}</a>
+	    					</address>
+	    				</footer>
+
+	    				<div class="entry-content">
+	    					<p>{{c.comment}}</p>
+	    				</div>
+	    			</article>
+    			</li>
+			{% endfor %}
+			
+     
+		</ol>
+		
+		<div id="respond">
+
+      <h3>Leave a Comment</h3>
+
+
+
+      <form action="{% url 'index' %}" method="post" id="commentform">
+      	{% csrf_token %}
+
+      	{{ form }}
+
+        <input name="submit" type="submit" value="Submit comment" />
+        
+      </form>
+      
+    </div>
+			
+	</section>
+	
+
+	
+	<footer id="contentinfo" class="body">
+		<address id="about" class="vcard body">
+			<span class="primary">
+				<strong><a href="#" class="fn url">Simple CommentApp</a></strong>
+				<span class="role"> Amazing APP</span>
+			</span>
+		
+			<img src="images/avatar.gif" alt="Smashing Magazine Logo" class="photo" />
+		
+			<span class="bio">Smashing Magazine is a website and blog that offers resources and advice to web developers and web designers. It was founded by Sven Lennartz and Vitaly Friedman.</span>
+		
+		</address>
+		
+		<p> 2018 <a href="http://smashingmagazine.com">Smashing Magazine</a>.</p>
+	</footer>
+
+</body>
+</html>
